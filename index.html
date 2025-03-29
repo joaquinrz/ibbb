@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <!-- 1. Meta viewport for mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Isabella&#39;s Bath Bomb Bakery</title>
   <style>
-    body {
+    /* Basic resets and styling */
+
+    html, body {
       margin: 0;
       padding: 0;
+    }
+
+    body {
       font-family: "Comic Sans MS", cursive, sans-serif;
       background-color: #ffe0eb; /* A light pink background */
       color: #444;
+
+      /* Optional: Helps remove gray highlight in iOS Safari when tapping */
+      -webkit-tap-highlight-color: transparent;
+      /* Optional: Helps the browser know these elements are primarily for taps */
+      touch-action: manipulation;
     }
 
     .container {
@@ -49,10 +61,11 @@
       color: #666;
     }
 
+    /* 2. Increased gap for better spacing on small screens */
     .product-list {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
       margin-bottom: 20px;
     }
     .product-row {
@@ -76,9 +89,10 @@
       display: flex;
       gap: 10px;
     }
+    /* 3. Larger hit area for buttons */
     .buttons button {
       font-size: 1em;
-      padding: 8px 12px;
+      padding: 12px 16px; /* Increased padding for easier tapping */
       background-color: #f7a7c0;
       border: none;
       border-radius: 5px;
@@ -118,23 +132,24 @@
       font-size: 1.1em;
       color: #cc397b;
     }
+    /* 4. Make input fields bigger for mobile */
     .cash-input-section input[type="number"] {
-      font-size: 1em;
-      padding: 8px;
+      font-size: 1.2em; /* Slightly larger font for mobile */
+      padding: 10px;
       border-radius: 5px;
       border: 2px solid #ff87a6;
-      width: 120px;
+      width: 130px; /* Wider so it's easier to tap */
       text-align: center;
     }
 
-    /* Reset/New Sale button styling */
+    /* "New Sale" button styling */
     .reset-section {
       text-align: center;
-      margin-bottom: 20px; /* Add a bit of spacing */
+      margin-bottom: 20px; 
     }
     .reset-section button {
       font-size: 1em;
-      padding: 10px 16px;
+      padding: 12px 20px; /* Increased for touch */
       background-color: #f7a7c0;
       border: none;
       border-radius: 5px;
@@ -147,19 +162,23 @@
       background-color: #ff7fa6;
     }
 
-    /* Responsive for smaller devices */
-    @media (max-width: 480px) {
+    /* 5. Responsive for smaller devices and possibly tablets */
+    @media (max-width: 768px) {
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
       .product-row {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start; /* or center, depending on your preference */
         gap: 10px;
       }
       .product-left {
-        align-items: center;
+        align-items: flex-start;
       }
       .buttons {
-        justify-content: center;
         width: 100%;
+        justify-content: center;
       }
       .quantity {
         margin-left: 0;
@@ -172,7 +191,6 @@
 <div class="container">
   <!-- Logo -->
   <div class="logo-container">
-    <!-- Make sure logo.jpeg is in the same folder or adjust the path accordingly -->
     <img src="logo.jpeg" alt="Logo">
   </div>
   
@@ -182,7 +200,7 @@
     Enter the customer’s money to calculate their change!
   </div>
 
-  <!-- New Sale button (identical to the one at bottom, placed here as requested) -->
+  <!-- New Sale button at the top -->
   <div class="reset-section">
     <button onclick="resetAll()">New Sale</button>
   </div>
@@ -262,7 +280,7 @@
     Change: <span id="change">$0.00</span>
   </div>
 
-  <!-- New Sale Button (formerly "Reset") -->
+  <!-- New Sale Button at bottom -->
   <div class="reset-section">
     <button onclick="resetAll()">New Sale</button>
   </div>
@@ -336,7 +354,6 @@
 
     document.getElementById('total').innerText = '$' + total.toFixed(2);
 
-    // Recalculate change in case cash was already entered
     calculateChange();
   }
 
