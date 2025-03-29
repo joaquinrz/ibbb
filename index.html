@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Isabella&#39;s Bath Bomb Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background-color: #ffe0eb; /* A light pink background */
+      color: #444;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    /* Logo section */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .logo-container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff87a6;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff7fa6;
+    }
+
+    .instructions {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      color: #666;
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .product-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffd5e5;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .product-left {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .product-left span {
+      font-weight: bold;
+      color: #cc397b;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .buttons button {
+      font-size: 1em;
+      padding: 8px 12px;
+      background-color: #f7a7c0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    .buttons button:hover {
+      background-color: #ff7fa6;
+    }
+    .quantity {
+      font-size: 1.1em;
+      color: #444;
+      margin-left: 10px;
+    }
+
+    .total-section,
+    .change-section {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+    }
+    .total-section span,
+    .change-section span {
+      font-weight: bold;
+      color: #ff4a92;
+    }
+
+    .cash-input-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cash-input-section label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+      color: #cc397b;
+    }
+    .cash-input-section input[type="number"] {
+      font-size: 1em;
+      padding: 8px;
+      border-radius: 5px;
+      border: 2px solid #ff87a6;
+      width: 120px;
+      text-align: center;
+    }
+
+    /* Reset/New Sale button styling */
+    .reset-section {
+      text-align: center;
+      margin-bottom: 20px; /* Add a bit of spacing */
+    }
+    .reset-section button {
+      font-size: 1em;
+      padding: 10px 16px;
+      background-color: #f7a7c0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    .reset-section button:hover {
+      background-color: #ff7fa6;
+    }
+
+    /* Responsive for smaller devices */
+    @media (max-width: 480px) {
+      .product-row {
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+      }
+      .product-left {
+        align-items: center;
+      }
+      .buttons {
+        justify-content: center;
+        width: 100%;
+      }
+      .quantity {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Logo -->
+  <div class="logo-container">
+    <!-- Make sure logo.jpeg is in the same folder or adjust the path accordingly -->
+    <img src="logo.jpeg" alt="Logo">
+  </div>
+  
+  <h1>Isabella&#39;s Bath Bomb Bakery</h1>
+  <div class="instructions">
+    Add or remove your treats below, then see how much the total is.
+    Enter the customer’s money to calculate their change!
+  </div>
+
+  <!-- New Sale button (identical to the one at bottom, placed here as requested) -->
+  <div class="reset-section">
+    <button onclick="resetAll()">New Sale</button>
+  </div>
+
+  <!-- Products -->
+  <div class="product-list">
+    <!-- Cupcakes -->
+    <div class="product-row">
+      <div class="product-left">
+        <span>Cupcakes ($5)</span>
+      </div>
+      <div class="buttons">
+        <button onclick="increment('cupcakes')">Add</button>
+        <button onclick="decrement('cupcakes')">Remove</button>
+      </div>
+      <div class="quantity">
+        Qty: <span id="qtyCupcakes">0</span>
+      </div>
+    </div>
+
+    <!-- Donuts -->
+    <div class="product-row">
+      <div class="product-left">
+        <span>Donuts ($4)</span>
+      </div>
+      <div class="buttons">
+        <button onclick="increment('donuts')">Add</button>
+        <button onclick="decrement('donuts')">Remove</button>
+      </div>
+      <div class="quantity">
+        Qty: <span id="qtyDonuts">0</span>
+      </div>
+    </div>
+
+    <!-- Izzy's Fizzys -->
+    <div class="product-row">
+      <div class="product-left">
+        <span>Izzy's Fizzys ($3)</span>
+      </div>
+      <div class="buttons">
+        <button onclick="increment('fizzys')">Add</button>
+        <button onclick="decrement('fizzys')">Remove</button>
+      </div>
+      <div class="quantity">
+        Qty: <span id="qtyFizzys">0</span>
+      </div>
+    </div>
+
+    <!-- Cookies -->
+    <div class="product-row">
+      <div class="product-left">
+        <span>Cookies ($3)</span>
+      </div>
+      <div class="buttons">
+        <button onclick="increment('cookies')">Add</button>
+        <button onclick="decrement('cookies')">Remove</button>
+      </div>
+      <div class="quantity">
+        Qty: <span id="qtyCookies">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Amount -->
+  <div class="total-section">
+    Total Amount: <span id="total">$0.00</span>
+  </div>
+
+  <!-- Cash Input -->
+  <div class="cash-input-section">
+    <label for="cashGiven">Enter Cash Received:</label>
+    <input type="number" id="cashGiven" placeholder="0" oninput="calculateChange()">
+  </div>
+
+  <!-- Change Calculation -->
+  <div class="change-section">
+    Change: <span id="change">$0.00</span>
+  </div>
+
+  <!-- New Sale Button (formerly "Reset") -->
+  <div class="reset-section">
+    <button onclick="resetAll()">New Sale</button>
+  </div>
+</div>
+
+<script>
+  // Define product prices
+  const prices = {
+    cupcakes: 5,
+    donuts: 4,
+    fizzys: 3,
+    cookies: 3
+  };
+
+  // Define product quantities
+  let qtyCupcakes = 0;
+  let qtyDonuts = 0;
+  let qtyFizzys = 0;
+  let qtyCookies = 0;
+
+  // Increment product quantity
+  function increment(product) {
+    switch (product) {
+      case 'cupcakes':
+        qtyCupcakes++;
+        break;
+      case 'donuts':
+        qtyDonuts++;
+        break;
+      case 'fizzys':
+        qtyFizzys++;
+        break;
+      case 'cookies':
+        qtyCookies++;
+        break;
+    }
+    updateDisplay();
+  }
+
+  // Decrement product quantity
+  function decrement(product) {
+    switch (product) {
+      case 'cupcakes':
+        if (qtyCupcakes > 0) qtyCupcakes--;
+        break;
+      case 'donuts':
+        if (qtyDonuts > 0) qtyDonuts--;
+        break;
+      case 'fizzys':
+        if (qtyFizzys > 0) qtyFizzys--;
+        break;
+      case 'cookies':
+        if (qtyCookies > 0) qtyCookies--;
+        break;
+    }
+    updateDisplay();
+  }
+
+  // Update quantities and total on the page
+  function updateDisplay() {
+    document.getElementById('qtyCupcakes').innerText = qtyCupcakes;
+    document.getElementById('qtyDonuts').innerText = qtyDonuts;
+    document.getElementById('qtyFizzys').innerText = qtyFizzys;
+    document.getElementById('qtyCookies').innerText = qtyCookies;
+
+    const total =
+      (qtyCupcakes * prices.cupcakes) +
+      (qtyDonuts * prices.donuts) +
+      (qtyFizzys * prices.fizzys) +
+      (qtyCookies * prices.cookies);
+
+    document.getElementById('total').innerText = '$' + total.toFixed(2);
+
+    // Recalculate change in case cash was already entered
+    calculateChange();
+  }
+
+  // Calculate and display change
+  function calculateChange() {
+    const cashField = document.getElementById('cashGiven');
+    const cashGiven = parseFloat(cashField.value) || 0;
+
+    const currentTotal =
+      (qtyCupcakes * prices.cupcakes) +
+      (qtyDonuts * prices.donuts) +
+      (qtyFizzys * prices.fizzys) +
+      (qtyCookies * prices.cookies);
+
+    const change = cashGiven - currentTotal;
+
+    if (change < 0) {
+      document.getElementById('change').innerText = 'Not enough!';
+    } else {
+      document.getElementById('change').innerText = '$' + change.toFixed(2);
+    }
+  }
+
+  // Reset (New Sale) function
+  function resetAll() {
+    qtyCupcakes = 0;
+    qtyDonuts = 0;
+    qtyFizzys = 0;
+    qtyCookies = 0;
+    document.getElementById('cashGiven').value = '';
+    updateDisplay();
+  }
+</script>
+</body>
+</html>
